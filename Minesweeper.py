@@ -1,4 +1,4 @@
-from tkinter import *
+import tkinter as tk
 from functools import partial
 import random
 
@@ -48,14 +48,14 @@ def get_neighbors(count, x, y):
 def end():
         ''' Show a window when game finish, either win or lose. '''
         
-        end = Toplevel()
+        end = tk.Toplevel()
         end.geometry('100x100')
 
-        message = Label(end, text='The End!', justify=CENTER)
+        message = tk.Label(end, text='The End!', justify='center')
         message.pack()
 
         # a button for closing the game window at the end 
-        back_btn = Button(end, width=5, text='back', 
+        back_btn = tk.Button(end, width=5, text='back', 
                           command=lambda:[end.destroy(), root.destroy()])
         back_btn.place(x=42.5, y=40)
         
@@ -67,7 +67,7 @@ def Mine(n, x, y):
         And game finish. '''
         
         bname = b[n]
-        bname.configure(text='\u26AB', fg='black', bg='red', relief=SUNKEN)                        
+        bname.configure(text='\u26AB', fg='black', bg='red', relief='sunken')                        
         cells[n] = None
         
         for i in range(x*y):
@@ -75,10 +75,10 @@ def Mine(n, x, y):
                 bname = b[i]
                 
                 if cells[i] == '@':
-                        bname.configure(text='\u26AB', fg='black', bg='powder blue', relief=SUNKEN)                           
+                        bname.configure(text='\u26AB', fg='black', bg='powder blue', relief='sunken')                           
                 else:
                         if flag[i] == '1':
-                                bname.configure(text='\u26CC', fg='red', bg='powder blue', relief=SUNKEN)
+                                bname.configure(text='\u26CC', fg='red', bg='powder blue', relief='sunken')
                                 
         end()
         
@@ -89,7 +89,7 @@ def num_cell(n):
                 
         bname = b[n]
         bname.config(text=cells[n], bg='powder blue', fg='black')
-        bname.config(relief=SUNKEN)
+        bname.config(relief='sunken')
         cells[n] = None
         flag[n] = 1
         
@@ -107,7 +107,7 @@ def num_cell(n):
 def empty_cell(n, width, height):
         
         bname = b[n]
-        bname.config(bg='powder blue', relief=SUNKEN)
+        bname.config(bg='powder blue', relief='sunken')
         cells[n] = None
         flag[n] = 1
         
@@ -129,13 +129,13 @@ def empty_cell(n, width, height):
                                         if type(cells[g]) is int:
                                                 
                                                 bname.config(text=cells[g], bg='powder blue',
-                                                             relief=SUNKEN)
+                                                             relief='sunken')
                                                 cells[g] = None
                                                 flag[g] = 1
                                                 
                                         if cells[g] == '*':
                                                 
-                                                bname.config(bg='powder blue', relief=SUNKEN)
+                                                bname.config(bg='powder blue', relief='sunken')
                                                 x.append(g)
                                                 cells[g] = None
                                                 flag[g] = 1
@@ -205,7 +205,7 @@ def GamePage(x, y, number_of_mines):
         
     global root, b, cells, flag
         
-    root = Toplevel()
+    root = tk.Toplevel()
     x1 = x*28
     y1 = y*28
     root.geometry("{}x{}".format(x1, y1))
@@ -247,7 +247,7 @@ def GamePage(x, y, number_of_mines):
                     else:
                             cells[count] = q
                 
-            btn = Button(root, width=2)
+            btn = tk.Button(root, width=2)
             btn.bind('<Button-1>', partial(left_click, count, x, y))
             btn.bind('<Button-3>', partial(right_click, count))
             btn.place(x=i*28, y=j*28)
@@ -259,15 +259,15 @@ def GamePage(x, y, number_of_mines):
     
 def custom():
         
-    window = Toplevel()
+    window = tk.Toplevel()
     window.title('Custom')
     window.geometry("250x250")
     
-    label1 = Label(window, text="width")
+    label1 = tk.Label(window, text="width")
     label1.place(x=0, y=0)
-    label2 = Label(window, text="height")
+    label2 = tk.Label(window, text="height")
     label2.place(x=0, y=30)
-    label3 = Label(window, text="Percent mines")
+    label3 = tk.Label(window, text="Percent mines")
     label3.place(x=0, y=60)
 
 
@@ -280,38 +280,38 @@ def custom():
     var1 = IntVar()
     var2 = IntVar()
     var3 = IntVar()
-    spin1 = Spinbox(window, from_=1, to=100, textvariable=var1, command=update_button1)
+    spin1 = tk.Spinbox(window, from_=1, to=100, textvariable=var1, command=update_button1)
     spin1.place(x=100, y=0)
-    spin2 = Spinbox(window, from_=1, to=100, textvariable=var2, command=update_button1)
+    spin2 = tk.Spinbox(window, from_=1, to=100, textvariable=var2, command=update_button1)
     spin2.place(x=100, y=30)
-    spin3 = Spinbox(window, from_=1, to=2, textvariable=var3, command=update_button1)
+    spin3 = tk.Spinbox(window, from_=1, to=2, textvariable=var3, command=update_button1)
     spin3.place(x=100, y=60)
         
             
 
-    button1 = Button(window, text="Play Game", width=32,
+    button1 = tk.Button(window, text="Play Game", width=32,
                      command=partial(GamePage, 1, 1, 1))
     button1.place(x=8, y=90)
 
     def close():
             window.destroy()
             
-    button2 = Button(window, text="Cancel", width=32, command=close)  
+    button2 = tk.Button(window, text="Cancel", width=32, command=close)  
     button2.place(x=8, y=125)
     
     
 # First window
-top = Tk()
+top = tk.Tk()
 top.title("Mine Sweeper")
 top.geometry("400x400")
    
-btn1 = Button(top, text="8x8 \n 10 mines", height=10, width=20, command=partial(GamePage, 8, 8, 10))
+btn1 = tk.Button(top, text="8x8 \n 10 mines", height=10, width=20, command=partial(GamePage, 8, 8, 10))
 btn1.place(x=35, y=25)
-btn2 = Button(top, text="16x16 \n 40 mines", height=10, width=20, command=partial(GamePage, 16, 16, 40))
+btn2 = tk.Button(top, text="16x16 \n 40 mines", height=10, width=20, command=partial(GamePage, 16, 16, 40))
 btn2.place(x=200, y=25)
-btn3 = Button(top, text="30x16 \n 99 mines", height=10, width=20, command=partial(GamePage, 30, 16, 99))
+btn3 = tk.Button(top, text="30x16 \n 99 mines", height=10, width=20, command=partial(GamePage, 30, 16, 99))
 btn3.place(x=35, y=200)
-btn4  = Button(top, text="? \n Custom", height=10, width=20, command=custom)
+btn4  = tk.Button(top, text="? \n Custom", height=10, width=20, command=custom)
 btn4.place(x=200, y=200)
 
 
